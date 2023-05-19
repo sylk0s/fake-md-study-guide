@@ -36,7 +36,8 @@ public class Header {
    * @param subHeader The subheaders under this header
    * @param numTags The number of # before this header
    */
-  public Header(String name, ArrayList<String> important, ArrayList<Header> subHeader, int numTags) {
+  public Header(String name, ArrayList<String> important,
+                ArrayList<Header> subHeader, int numTags) {
     this.name = name;
     this.important = important;
     this.subHeader = subHeader;

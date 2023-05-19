@@ -2,10 +2,10 @@ package cs3500.pa01.parsing;
 
 import static java.util.stream.Collectors.toCollection;
 
+import cs3500.pa01.files.SummarizableFile;
 import cs3500.pa01.markdown.Header;
 import cs3500.pa01.markdown.MarkdownContents;
 import cs3500.pa01.markdown.MarkdownFile;
-import cs3500.pa01.files.SummarizableFile;
 import java.nio.file.attribute.FileTime;
 import java.util.ArrayList;
 import java.util.Arrays;

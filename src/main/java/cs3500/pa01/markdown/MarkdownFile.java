@@ -1,7 +1,7 @@
 package cs3500.pa01.markdown;
 
-import cs3500.pa01.files.SummarizableFile;
 import cs3500.pa01.files.FileContents;
+import cs3500.pa01.files.SummarizableFile;
 import java.nio.file.attribute.FileTime;
 import java.util.ArrayList;
 
