@@ -1,5 +1,6 @@
-package cs3500.pa01;
+package cs3500.pa01.parsing;
 
+import cs3500.pa01.files.SummarizableFile;
 import java.nio.file.attribute.FileTime;
 
 /**

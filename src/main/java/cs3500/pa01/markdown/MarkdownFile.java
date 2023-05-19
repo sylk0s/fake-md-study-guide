@@ -1,5 +1,7 @@
-package cs3500.pa01;
+package cs3500.pa01.markdown;
 
+import cs3500.pa01.files.SummarizableFile;
+import cs3500.pa01.files.FileContents;
 import java.nio.file.attribute.FileTime;
 import java.util.ArrayList;
 
@@ -37,7 +39,7 @@ public class MarkdownFile implements SummarizableFile {
    * @param modified The time when this file was last modified
    * @param name The name of this file
    */
-  MarkdownFile(FileContents contents, FileTime created, FileTime modified, String name) {
+  public MarkdownFile(FileContents contents, FileTime created, FileTime modified, String name) {
     this.contents = contents;
     this.created = created;
     this.modified = modified;
@@ -53,7 +55,7 @@ public class MarkdownFile implements SummarizableFile {
    * @param modified The time when this file was last modified
    * @param name The name of this file
    */
-  MarkdownFile(Header header, FileTime created, FileTime modified, String name) {
+  public MarkdownFile(Header header, FileTime created, FileTime modified, String name) {
     ArrayList<Header> h = new ArrayList<>();
     h.add(header);
 

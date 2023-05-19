@@ -1,4 +1,4 @@
-package cs3500.pa01;
+package cs3500.pa01.markdown;
 
 import java.util.ArrayList;
 
@@ -36,7 +36,7 @@ public class Header {
    * @param subHeader The subheaders under this header
    * @param numTags The number of # before this header
    */
-  Header(String name, ArrayList<String> important, ArrayList<Header> subHeader, int numTags) {
+  public Header(String name, ArrayList<String> important, ArrayList<Header> subHeader, int numTags) {
     this.name = name;
     this.important = important;
     this.subHeader = subHeader;
@@ -49,7 +49,7 @@ public class Header {
    * @param name The name of this header
    * @param numTags The depth of this header
    */
-  Header(String name, int numTags) {
+  public Header(String name, int numTags) {
     this(name, new ArrayList<>(), new ArrayList<>(), numTags);
   }
 

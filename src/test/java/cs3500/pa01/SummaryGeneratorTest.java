@@ -3,6 +3,9 @@ package cs3500.pa01;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import cs3500.pa01.files.SummarizableFile;
+import cs3500.pa01.markdown.Header;
+import cs3500.pa01.markdown.MarkdownFile;
 import java.nio.file.attribute.FileTime;
 import java.util.ArrayList;
 import org.junit.jupiter.api.BeforeEach;

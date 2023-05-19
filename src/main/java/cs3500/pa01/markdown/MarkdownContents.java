@@ -1,5 +1,6 @@
-package cs3500.pa01;
+package cs3500.pa01.markdown;
 
+import cs3500.pa01.files.FileContents;
 import java.util.ArrayList;
 
 /**
@@ -17,7 +18,7 @@ public class MarkdownContents implements FileContents {
    *
    * @param headers The headers contained in this file
    */
-  MarkdownContents(ArrayList<Header> headers) {
+  public MarkdownContents(ArrayList<Header> headers) {
     this.headers = headers;
   }
 

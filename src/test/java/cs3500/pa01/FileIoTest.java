@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import cs3500.pa01.files.FileIo;
 import java.io.IOException;
 import java.util.ArrayList;
 import org.junit.jupiter.api.Test;

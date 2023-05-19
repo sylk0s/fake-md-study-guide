@@ -1,5 +1,6 @@
 package cs3500.pa01;
 
+import cs3500.pa01.files.SummarizableFile;
 import java.util.ArrayList;
 import java.util.Comparator;
 

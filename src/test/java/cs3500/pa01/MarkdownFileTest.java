@@ -2,6 +2,9 @@ package cs3500.pa01;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import cs3500.pa01.markdown.Header;
+import cs3500.pa01.markdown.MarkdownContents;
+import cs3500.pa01.markdown.MarkdownFile;
 import java.nio.file.attribute.FileTime;
 import java.util.ArrayList;
 import org.junit.jupiter.api.Test;

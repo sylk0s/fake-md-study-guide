@@ -3,6 +3,7 @@ package cs3500.pa01;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import cs3500.pa01.files.MkCollectorFileVisitor;
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
