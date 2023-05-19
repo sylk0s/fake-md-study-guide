@@ -16,10 +16,7 @@ import org.junit.jupiter.api.Test;
  */
 class SummaryGeneratorTest {
 
-  /**
-   * A SummaryGenerator used by most tests
-   */
-  private SummaryGenerator sg;
+  private ArrayList<SummarizableFile> files;
 
   /**
    * Setup function called before each function
@@ -33,19 +30,16 @@ class SummaryGeneratorTest {
 
     // Artificially gives the files "created" and "modified" times for testing
     // This way we don't even need to artificially create files
+    this.files = new ArrayList<>();
     MarkdownFile f1 = new MarkdownFile(h1, FileTime.fromMillis(0),
         FileTime.fromMillis(2), "bbb");
     MarkdownFile f2 = new MarkdownFile(h2, FileTime.fromMillis(1),
         FileTime.fromMillis(1), "ccc");
     MarkdownFile f3 = new MarkdownFile(h3, FileTime.fromMillis(2),
         FileTime.fromMillis(0), "aaa");
-
-    ArrayList<SummarizableFile> files = new ArrayList<>();
-    files.add(f1);
-    files.add(f2);
-    files.add(f3);
-
-    this.sg = new SummaryGenerator(files);
+    this.files.add(f1);
+    this.files.add(f2);
+    this.files.add(f3);
   }
 
   /**
@@ -54,7 +48,8 @@ class SummaryGeneratorTest {
    */
   @Test
   public void testModifiedOrdering() {
-    assertEquals(this.sg.generate("modified"), "# Header 1\n\n# Header 2\n\n# Header 3\n\n");
+    assertEquals(new SummaryGenerator(this.files, "modified").generate(),
+        "# Header 1\n\n# Header 2\n\n# Header 3\n\n");
   }
 
   /**
@@ -63,7 +58,8 @@ class SummaryGeneratorTest {
    */
   @Test
   public void testCreatedOrdering() {
-    assertEquals(this.sg.generate("created"), "# Header 3\n\n# Header 2\n\n# Header 1\n\n");
+    assertEquals(new SummaryGenerator(this.files, "created").generate(),
+        "# Header 3\n\n# Header 2\n\n# Header 1\n\n");
   }
 
   /**
@@ -71,7 +67,8 @@ class SummaryGeneratorTest {
    */
   @Test
   public void testNameOrdering() {
-    assertEquals(this.sg.generate("filename"), "# Header 3\n\n# Header 1\n\n# Header 2\n\n");
+    assertEquals(new SummaryGenerator(this.files, "filename").generate(),
+        "# Header 3\n\n# Header 1\n\n# Header 2\n\n");
   }
 
   /**
@@ -120,13 +117,11 @@ class SummaryGeneratorTest {
     MarkdownFile file2 = new MarkdownFile(h,
         FileTime.fromMillis(0), FileTime.fromMillis(0), "zzz");
 
-    ArrayList<SummarizableFile> files = new ArrayList<>();
-    files.add(file2);
-    files.add(file);
+    ArrayList<SummarizableFile> files2 = new ArrayList<>();
+    files2.add(file2);
+    files2.add(file);
 
-    SummaryGenerator sumGen = new SummaryGenerator(files);
-
-    assertEquals(sumGen.generate("filename"),
+    assertEquals(new SummaryGenerator(files2, "filename").generate(),
         """
             # Header 1
             - another important phrase
@@ -148,6 +143,7 @@ class SummaryGeneratorTest {
    */
   @Test
   public void testThrows() {
-    assertThrows(IllegalArgumentException.class, () -> sg.generate("AAA"));
+    assertThrows(IllegalArgumentException.class,
+        () -> new SummaryGenerator(files, "AAA").generate());
   }
 }

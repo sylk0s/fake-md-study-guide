@@ -26,8 +26,8 @@ public class Driver {
       Files.walkFileTree(Path.of(args[0]), visitor);
 
       // generate a summary from this list & writes it to a file
-      SummaryGenerator sg = new SummaryGenerator(visitor.getFiles());
-      FileIo.writeFile(args[2], sg.generate(args[1]));
+      SummaryGenerator sg = new SummaryGenerator(visitor.getFiles(), args[1]);
+      FileIo.writeFile(args[2], sg.generate());
     } else {
       throw new RuntimeException("Too few arguments");
     }
