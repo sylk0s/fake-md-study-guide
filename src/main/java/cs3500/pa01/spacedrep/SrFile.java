@@ -13,6 +13,10 @@ public class SrFile implements QuestionFile {
    */
   ArrayList<Question> questions;
 
+  public SrFile(ArrayList<Question> questions) {
+    this.questions = questions;
+  }
+
   /**
    * Get the questions from this file
    *
@@ -21,5 +25,15 @@ public class SrFile implements QuestionFile {
   @Override
   public ArrayList<Question> getQuestions() {
     return this.questions;
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    for (Question q : this.questions) {
+      sb.append(q.toString());
+      sb.append("\n\n");
+    }
+    return sb.toString();
   }
 }

@@ -27,7 +27,7 @@ public class Question {
    * @param question the question
    * @param answer the answer to this question
    */
-  Question(QuestionType type, String question, String answer) {
+  public Question(QuestionType type, String question, String answer) {
     this.type = type;
     this.question = question;
     this.answer = answer;

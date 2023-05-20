@@ -6,6 +6,8 @@ import cs3500.pa01.files.SummarizableFile;
 import cs3500.pa01.markdown.Header;
 import cs3500.pa01.markdown.MarkdownContents;
 import cs3500.pa01.markdown.MarkdownFile;
+import cs3500.pa01.spacedrep.Question;
+import cs3500.pa01.spacedrep.QuestionType;
 import java.nio.file.attribute.FileTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,6 +29,11 @@ public class MarkdownParser implements Parser {
   private final Stack<Header> headers;
 
   /**
+   * The questions from this file
+   */
+  private final ArrayList<Question> questions;
+
+  /**
    * Creates a new markdown parser given the lines to parse
    *
    * @param lines the content of the markdown file to parse
@@ -34,6 +41,7 @@ public class MarkdownParser implements Parser {
   public MarkdownParser(ArrayList<String> lines) {
     this.lines = lines;
     this.headers = new Stack<>();
+    this.questions = new ArrayList<>();
   }
 
   /**
@@ -48,7 +56,8 @@ public class MarkdownParser implements Parser {
   @Override
   public SummarizableFile parse(String name, FileTime created, FileTime modified) {
     this.readIntoHeaderStack();
-    return new MarkdownFile(new MarkdownContents(this.nestHeaders()), created, modified, name);
+    return new MarkdownFile(new MarkdownContents(this.nestHeaders()),
+        created, modified, name, this.questions);
   }
 
   /**
@@ -91,9 +100,34 @@ public class MarkdownParser implements Parser {
     Header current = this.headers.pop();
     // process all the phrases from the previous header
     for (String phrase : getPhrases(headerBlock.toString())) {
-      current.addPhrase(phrase);
+      if (isQuestion(phrase)) {
+        this.questions.add(parseQuestion(phrase));
+      } else {
+        current.addPhrase(phrase);
+      }
     }
     this.headers.push(current);
+  }
+
+  /**
+   * Determines if a phrase is a question
+   *
+   * @param phrase the phrase to analyze
+   * @return A boolean, true if it is a question
+   */
+  private boolean isQuestion(String phrase) {
+    return phrase.contains(":::");
+  }
+
+  /**
+   * Parses a String into a question
+   *
+   * @param question The question as a string
+   * @return The question as a Question obj
+   */
+  private Question parseQuestion(String question) {
+    String[] split = question.split(":::");
+    return new Question(QuestionType.HARD, split[0], split[1]);
   }
 
   /**
