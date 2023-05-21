@@ -15,4 +15,11 @@ public class SimpleCli implements Ui {
     Scanner sc = new Scanner(System.in);
     return sc.nextLine();
   }
+
+  @Override
+  public int getInt(String prompt) {
+    System.out.println(prompt);
+    Scanner sc = new Scanner(System.in);
+    return sc.nextInt();
+  }
 }

@@ -43,5 +43,7 @@ public class UiController {
     this.ui.displayString(s.summary());
   }
 
-
+  public int getMax() {
+    return this.ui.getInt("How many questions do you want in this study session?");
+  }
 }
