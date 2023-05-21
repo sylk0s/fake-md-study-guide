@@ -39,7 +39,7 @@ public class SrFileGenerator implements FileGenerator {
     StringBuilder sb = new StringBuilder();
     for (Question q : this.allQuestions()) {
       sb.append(q);
-      sb.append("\n");
+      sb.append("\n\n");
     }
     return sb.toString();
   }

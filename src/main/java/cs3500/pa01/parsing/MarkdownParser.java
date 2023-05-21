@@ -2,7 +2,6 @@ package cs3500.pa01.parsing;
 
 import static java.util.stream.Collectors.toCollection;
 
-import cs3500.pa01.files.SummarizableFile;
 import cs3500.pa01.markdown.Header;
 import cs3500.pa01.markdown.MarkdownContents;
 import cs3500.pa01.markdown.MarkdownFile;
@@ -16,7 +15,7 @@ import java.util.Stack;
 /**
  * Represents a Parser that can parse a markdown file into an object
  */
-public class MarkdownParser implements Parser {
+public class MarkdownParser {
 
   /**
    * A list of the lines of the file
@@ -53,8 +52,7 @@ public class MarkdownParser implements Parser {
    *
    * @return An object representing the parsed markdown file
    */
-  @Override
-  public SummarizableFile parse(String name, FileTime created, FileTime modified) {
+  public MarkdownFile parse(String name, FileTime created, FileTime modified) {
     this.readIntoHeaderStack();
     return new MarkdownFile(new MarkdownContents(this.nestHeaders()),
         created, modified, name, this.questions);

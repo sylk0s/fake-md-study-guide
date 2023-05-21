@@ -2,6 +2,8 @@ package cs3500.pa01;
 
 import cs3500.pa01.files.FileIo;
 import cs3500.pa01.files.MkCollectorFileVisitor;
+import cs3500.pa01.files.QuCollectorFileVisitor;
+import cs3500.pa01.spacedrep.Session;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -27,7 +29,18 @@ public class Driver {
 
       // generate a summary from this list & writes it to a file
       SummaryGenerator sg = new SummaryGenerator(visitor.getFiles(), args[1]);
-      FileIo.writeFile(args[2], sg.generate());
+      FileIo.writeFile(args[2] + ".md", sg.generate());
+
+      // TODO this is super ugly and can be fixed!
+      QuCollectorFileVisitor visitor2 = new QuCollectorFileVisitor();
+      Files.walkFileTree(Path.of(args[0]), visitor2);
+
+      SrFileGenerator sr = new SrFileGenerator(visitor2.getFiles());
+      FileIo.writeFile(args[2] + ".sr", sr.generate());
+
+    } else if (args.length == 0) {
+      Session session = new Session();
+      session.run();
     } else {
       throw new RuntimeException("Too few arguments");
     }
