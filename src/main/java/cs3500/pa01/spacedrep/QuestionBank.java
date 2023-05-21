@@ -4,12 +4,14 @@ import cs3500.pa01.files.QuestionFile;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 /**
  * Basically wraps an iterator over the list of all questions in a check for if
  * the max number of questions has been hit yet
  */
 public class QuestionBank implements Iterator<Question> {
+  private final ArrayList<Question> questions;
   private final Iterator<Question> questionsIter;
   private final int max;
 
@@ -18,10 +20,13 @@ public class QuestionBank implements Iterator<Question> {
   QuestionBank(ArrayList<QuestionFile> files, int max) {
     this.max = max;
     this.curr = 0;
-    ArrayList<Question> questions = new ArrayList<>();
+    this.questions = new ArrayList<>();
     for (QuestionFile qf : files) {
       questions.addAll(qf.getQuestions());
     }
+
+    // This sorting basically just puts all hard questions before all easy questions
+    // No other promises are made about the order
     questions.sort((a, b) -> {
       if (a.getType() == QuestionType.HARD) {
         return -1;
@@ -54,5 +59,14 @@ public class QuestionBank implements Iterator<Question> {
   public Question next() {
     this.curr += 1;
     return this.questionsIter.next();
+  }
+
+  public int numOfType(QuestionType type) {
+    return this.questions.stream().filter((q) -> q.getType().equals(type))
+        .collect(Collectors.toCollection(ArrayList::new)).size();
+  }
+
+  public ArrayList<Question> getFinalQuestions() {
+    return this.questions;
   }
 }
