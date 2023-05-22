@@ -2,18 +2,17 @@ package cs3500.pa01;
 
 import cs3500.pa01.files.FileIo;
 import cs3500.pa01.files.MkCollectorFileVisitor;
-import cs3500.pa01.files.SummarizableFile;
 import cs3500.pa01.spacedrep.Session;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.stream.Collectors;
 
 /**
  * This is the main driver of this project.
  */
 public class Driver {
+  // TODO make sure command line args are correct
+
   /**
    * Project entry point
    *
@@ -25,23 +24,21 @@ public class Driver {
    */
   public static void main(String[] args) throws IOException {
     if (args.length >= 3) {
-      // Read files in and gets the list of SummarizableFiles
+      // Reads in a list of MarkdownFiles
       MkCollectorFileVisitor visitor = new MkCollectorFileVisitor();
       Files.walkFileTree(Path.of(args[0]), visitor);
 
-      // TODO fix this please
-      ArrayList<SummarizableFile> files = visitor.getFiles().stream()
-          .map((a) -> (SummarizableFile) a).collect(
-            Collectors.toCollection(ArrayList::new));
-
       // generate a summary from this list & writes it to a file
-      SummaryGenerator sg = new SummaryGenerator(files, args[1]);
+      SummaryGenerator sg = new SummaryGenerator(visitor.getFiles(), args[1]);
       FileIo.writeFile(args[2] + ".md", sg.generate());
 
+      // Generate a sr files from this list and write it to a file
       SrFileGenerator sr = new SrFileGenerator(visitor.getFiles());
       FileIo.writeFile(args[2] + ".sr", sr.generate());
 
     } else if (args.length == 0) {
+
+      // Create a new session
       Session session = new Session();
       session.run();
     } else {

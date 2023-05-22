@@ -11,7 +11,7 @@ import java.util.Comparator;
 public class SummaryGenerator implements FileGenerator {
 
   Comparator<SummarizableFile> sorter;
-  ArrayList<SummarizableFile> files;
+  ArrayList<? extends SummarizableFile> files;
 
   /**
    * Creates a new summary generator object
@@ -19,7 +19,7 @@ public class SummaryGenerator implements FileGenerator {
    * @param files The files used to generate this summary
    * @param type The method used to generate the summary
    */
-  public SummaryGenerator(ArrayList<SummarizableFile> files, String type) {
+  public SummaryGenerator(ArrayList<? extends SummarizableFile> files, String type) {
     this.files = files;
     this.sorter = switch (type) {
       case "filename" -> Comparator.comparing(SummarizableFile::getName);
