@@ -45,7 +45,7 @@ class DriverTest {
   @Test
   public void testMainFunctionality() {
     try {
-      Driver.main(new String[] {"sampleData/tests2", "filename", "sampleData/out/out2.md"});
+      Driver.main(new String[] {"sampleData/tests2", "filename", "sampleData/out/out2"});
 
       ArrayList<String> result = new ArrayList<>();
       result.add("# File 1 Header");
@@ -68,7 +68,7 @@ class DriverTest {
   @Test
   public void superComplexTest() {
     try {
-      Driver.main(new String[] {"sampleData/tests1", "filename", "sampleData/out/out1.md"});
+      Driver.main(new String[] {"sampleData/tests1", "filename", "sampleData/out/out1"});
 
       assertEquals(FileIo.readFile("sampleData/out/out1.md").stream()
           .reduce("", (acc, x) -> acc + x + "\n", String::concat),
