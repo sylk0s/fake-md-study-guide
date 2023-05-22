@@ -2,6 +2,7 @@ package cs3500.pa01.files;
 
 import static java.nio.file.FileVisitResult.CONTINUE;
 
+import cs3500.pa01.markdown.MarkdownFile;
 import cs3500.pa01.parsing.MarkdownParser;
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
@@ -18,7 +19,7 @@ public class MkCollectorFileVisitor implements FileVisitor<Path> {
   /**
    * A list of SummarizableFiles that has been collected so far by the FileVisitor
    */
-  private final ArrayList<SummarizableFile> files = new ArrayList<>();
+  private final ArrayList<MarkdownFile> files = new ArrayList<>();
 
   /**
    * Logic for what to do when a file is visited
@@ -90,7 +91,7 @@ public class MkCollectorFileVisitor implements FileVisitor<Path> {
    *
    * @return Returns the parsed files in an ArrayList
    */
-  public ArrayList<SummarizableFile> getFiles() {
+  public ArrayList<MarkdownFile> getFiles() {
     return files;
   }
 }

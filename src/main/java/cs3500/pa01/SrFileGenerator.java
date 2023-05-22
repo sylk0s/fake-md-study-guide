@@ -13,20 +13,15 @@ public class SrFileGenerator implements FileGenerator {
   /**
    * The files to extract data from
    */
-  private final ArrayList<QuestionFile> files;
+  private final ArrayList<? extends QuestionFile> files;
 
   /**
    * Constructor
    *
    * @param files The files used to source the questions
    */
-  SrFileGenerator(ArrayList<QuestionFile> files) {
+  SrFileGenerator(ArrayList<? extends QuestionFile> files) {
     this.files = files;
-  }
-
-  SrFileGenerator(QuestionFile file) {
-    this.files = new ArrayList<>();
-    this.files.add(file);
   }
 
   /**

@@ -1,6 +1,6 @@
 package cs3500.pa01.parsing;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import cs3500.pa01.spacedrep.Question;
 import cs3500.pa01.spacedrep.QuestionType;
@@ -35,8 +35,7 @@ class SrParserTest {
   public void testEmptyInput() {
     assertEquals(new SrParser(new ArrayList<>())
         .parse("", FileTime.fromMillis(0), FileTime.fromMillis(0))
-            .toString(),
-    new SrFile(new ArrayList<>()).toString());
+            .toString(), new SrFile(new ArrayList<>()).toString());
   }
 
   @Test

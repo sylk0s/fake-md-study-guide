@@ -8,36 +8,83 @@ import java.io.IOException;
 import java.nio.file.attribute.FileTime;
 import java.util.ArrayList;
 
+/**
+ * Represents a spaced repetition session
+ */
 public class Session {
+
+  /**
+   * The UI controller to display this session to the user
+   */
   private final UiController ui;
+
+  /**
+   * The bank of questions this user will draw from
+   */
   private final QuestionBank qb;
-  private int qAnswered;
-  private int hToE;
-  private int eToH;
+
+  /**
+   * The number of questions answers so far
+   */
+  private int questionsAnswered;
+
+  /**
+   * The number of questions that have flipped from hard to easy
+   */
+  private int hardToEasy;
+
+  /**
+   * The number of questions that have flipped from easy to hard
+   */
+  private int easyToHard;
+
+  /**
+   * The number of unique hard questions in the session
+   */
   private final int hard;
+
+  /**
+   * The number of unique easy question in the session
+   */
   private final int easy;
 
   // TODO clean the redundant constructors
+
+  /**
+   * Constructor
+   *
+   * @param qb The question bank this session will use
+   */
   public Session(QuestionBank qb) {
     this.ui = new UiController();
     this.qb = qb;
-    this.qAnswered=0;
-    this.hToE=0;
-    this.eToH=0;
+    this.questionsAnswered = 0;
+    this.hardToEasy = 0;
+    this.easyToHard = 0;
     this.hard = qb.numOfType(QuestionType.HARD);
     this.easy = qb.numOfType(QuestionType.EASY);
   }
 
+  /**
+   * Constructor
+   *
+   * @param files The files this session will generate a question bank from
+   */
   public Session(ArrayList<QuestionFile> files) {
     this.ui = new UiController();
     this.qb = new QuestionBank(files, this.ui.getMax());
-    this.qAnswered=0;
-    this.hToE=0;
-    this.eToH=0;
+    this.questionsAnswered = 0;
+    this.hardToEasy = 0;
+    this.easyToHard = 0;
     this.hard = qb.numOfType(QuestionType.HARD);
     this.easy = qb.numOfType(QuestionType.EASY);
   }
 
+  /**
+   * Creates a new default session from user generated inputs
+   *
+   * @throws IOException Error from reading the file
+   */
   public Session() throws IOException {
     this.ui = new UiController();
     // Get the path to the SR file to read
@@ -52,27 +99,35 @@ public class Session {
     ArrayList<QuestionFile> files = new ArrayList<>();
     files.add(sr);
     this.qb = new QuestionBank(files, this.ui.getMax());
-    this.qAnswered = 0;
-    this.hToE = 0;
-    this.eToH = 0;
+    this.questionsAnswered = 0;
+    this.hardToEasy = 0;
+    this.easyToHard = 0;
     this.easy = this.qb.numOfType(QuestionType.EASY);
     this.hard = this.qb.numOfType(QuestionType.HARD);
   }
 
+  /**
+   * Get a summary of this session
+   *
+   * @return A summary of this session
+   */
   public String summary() {
-    return "You answered " + qAnswered + " questions.\n"
-        + hToE + " questions flipped from hard to easy.\n"
-        + eToH + " questions flipped from easy to hard.\n"
+    return "You answered " + questionsAnswered + " questions.\n"
+        + hardToEasy + " questions flipped from hard to easy.\n"
+        + easyToHard + " questions flipped from easy to hard.\n"
         + "Currently there are " + hard + " hard questions.\n"
         + "Currently there are " + easy + " easy questions.";
   }
 
+  /**
+   * Run this session
+   */
   public void run() {
     while (this.qb.hasNext()) {
       Question q = this.qb.next();
       this.ui.showQuestion(q);
       this.ui.updateQuestion(q, this);
-      qAnswered += 1;
+      questionsAnswered += 1;
     }
 
     this.ui.showSummary(this);
@@ -83,18 +138,28 @@ public class Session {
     // Write file
   }
 
+  /**
+   * Change a question to hard
+   *
+   * @param q The question to change
+   */
   public void questionToHard(Question q) {
     if (q.getType() != QuestionType.HARD) {
       q.changeType(QuestionType.HARD);
-      this.eToH += 1;
+      this.easyToHard += 1;
     }
 
   }
 
+  /**
+   * Change a question to easy
+   *
+   * @param q The question to change
+   */
   public void questionToEasy(Question q) {
     if (q.getType() != QuestionType.EASY) {
       q.changeType(QuestionType.EASY);
-      this.hToE += 1;
+      this.hardToEasy += 1;
     }
   }
 }

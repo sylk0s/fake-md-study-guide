@@ -7,9 +7,26 @@ import cs3500.pa01.spacedrep.SrFile;
 import java.nio.file.attribute.FileTime;
 import java.util.ArrayList;
 
+/**
+ * Parses Sr files into an object
+ */
 public class SrParser /*implements Parser*/ {
+
+  /**
+   * The lines from the file to parse
+   */
   private final ArrayList<String> lines;
+
+  /**
+   * The output of questions pulled from this file
+   */
   private final ArrayList<Question> questions;
+
+  /**
+   * Constructor
+   *
+   * @param lines the lines this parser will parse
+   */
   public SrParser(ArrayList<String> lines) {
     this.lines = lines;
     this.questions = new ArrayList<>();
