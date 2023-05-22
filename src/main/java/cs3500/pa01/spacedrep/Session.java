@@ -41,12 +41,12 @@ public class Session {
   /**
    * The number of unique hard questions in the session
    */
-  private final int hard;
+  private int hard;
 
   /**
    * The number of unique easy question in the session
    */
-  private final int easy;
+  private int easy;
 
   // TODO clean the redundant constructors
 
@@ -58,21 +58,6 @@ public class Session {
   public Session(QuestionBank qb) {
     this.ui = new UiController();
     this.qb = qb;
-    this.questionsAnswered = 0;
-    this.hardToEasy = 0;
-    this.easyToHard = 0;
-    this.hard = qb.numOfType(QuestionType.HARD);
-    this.easy = qb.numOfType(QuestionType.EASY);
-  }
-
-  /**
-   * Constructor
-   *
-   * @param files The files this session will generate a question bank from
-   */
-  public Session(ArrayList<QuestionFile> files) {
-    this.ui = new UiController();
-    this.qb = new QuestionBank(files, this.ui.getMax());
     this.questionsAnswered = 0;
     this.hardToEasy = 0;
     this.easyToHard = 0;
@@ -147,8 +132,8 @@ public class Session {
     if (q.getType() != QuestionType.HARD) {
       q.changeType(QuestionType.HARD);
       this.easyToHard += 1;
+      updateTypeCounts();
     }
-
   }
 
   /**
@@ -160,6 +145,12 @@ public class Session {
     if (q.getType() != QuestionType.EASY) {
       q.changeType(QuestionType.EASY);
       this.hardToEasy += 1;
+      updateTypeCounts();
     }
+  }
+
+  private void updateTypeCounts() {
+    this.hard = qb.numOfType(QuestionType.HARD);
+    this.easy = qb.numOfType(QuestionType.EASY);
   }
 }
