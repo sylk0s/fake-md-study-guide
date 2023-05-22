@@ -76,4 +76,20 @@ class QuestionBankTest {
 
     assertEquals(qb.next(), q1);
   }
+
+  @Test
+  public void testGetQuestions() {
+    Question q1 = new Question(QuestionType.HARD, "Some question", "An answer");
+    Question q2 = new Question(QuestionType.EASY, "Some question 2", "An answer 2");
+    ArrayList<Question> questions = new ArrayList<>();
+    questions.add(q1);
+    questions.add(q2);
+    SrFile sr = new SrFile(questions);
+    ArrayList<QuestionFile> files = new ArrayList<>();
+    files.add(sr);
+
+    QuestionBank qb = new QuestionBank(files, 100);
+
+    assertEquals(qb.getFinalQuestions(), questions);
+  }
 }

@@ -13,11 +13,6 @@ public class SummaryGenerator implements FileGenerator {
   Comparator<SummarizableFile> sorter;
   ArrayList<SummarizableFile> files;
 
-  SummaryGenerator(ArrayList<SummarizableFile> files, Comparator<SummarizableFile> sorter) {
-    this.files = files;
-    this.sorter = sorter;
-  }
-
   /**
    * Creates a new summary generator object
    *
