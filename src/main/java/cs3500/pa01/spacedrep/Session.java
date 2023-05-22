@@ -47,6 +47,8 @@ public class Session {
    */
   private int easy;
 
+  private final String path;
+
   // TODO clean the redundant constructors
 
   /**
@@ -62,6 +64,7 @@ public class Session {
     this.easyToHard = 0;
     this.hard = qb.numOfType(QuestionType.HARD);
     this.easy = qb.numOfType(QuestionType.EASY);
+    this.path = "";
   }
 
   /**
@@ -72,7 +75,7 @@ public class Session {
   public Session() throws IOException {
     this.ui = new UiController();
     // Get the path to the SR file to read
-    String path = this.ui.getPath();
+    this.path = this.ui.getPath();
 
     // Read in the SR file
 
@@ -128,6 +131,7 @@ public class Session {
     SrFile sr = new SrFile(this.qb.getFinalQuestions());
 
     // Write file
+    FileIo.writeFile(this.path, sr.toString());
   }
 
   /**

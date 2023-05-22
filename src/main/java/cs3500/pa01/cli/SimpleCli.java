@@ -23,7 +23,7 @@ public class SimpleCli implements Ui {
    */
   @Override
   public void displayString(String s) throws IOException {
-    this.output.append(s);
+    this.output.append(s).append("\n");
   }
 
   /**
@@ -34,7 +34,7 @@ public class SimpleCli implements Ui {
    */
   @Override
   public String getInput(String prompt) throws IOException {
-    this.output.append(prompt);
+    this.output.append(prompt).append("\n");
     Scanner sc = new Scanner(this.input);
     return sc.nextLine();
   }
@@ -47,7 +47,7 @@ public class SimpleCli implements Ui {
    */
   @Override
   public int getInt(String prompt) throws IOException {
-    this.output.append(prompt);
+    this.output.append(prompt).append("\n");
     Scanner sc = new Scanner(this.input);
     return sc.nextInt();
   }

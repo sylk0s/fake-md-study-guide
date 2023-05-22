@@ -61,8 +61,7 @@ public class UiController {
           1) Mark easy
           2) Mark hard
           3) Show answer
-          4) Continue
-        """);
+          4) Continue""");
     switch (s) {
       case "1" -> session.questionToEasy(q);
       case "2" -> session.questionToHard(q);
