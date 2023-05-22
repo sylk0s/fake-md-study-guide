@@ -2,6 +2,7 @@ package cs3500.pa01;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import cs3500.pa01.files.QuestionFile;
 import cs3500.pa01.files.SummarizableFile;
 import cs3500.pa01.parsing.MarkdownParser;
 import java.nio.file.attribute.FileTime;
@@ -184,5 +185,52 @@ class MarkdownParserTest {
 
     // Asserts that none of the lines match
     assertEquals(file.summarize(), "# Header 1\n\n");
+  }
+
+  @Test
+  public void testQuestions() {
+    ArrayList<String> lines = new ArrayList<>();
+    lines.add("# Header 1");
+    lines.add("- [[just a phrase]]");
+    lines.add("- [[question:::answer]]");
+    lines.add("- nothing:::nothing");
+    lines.add("");
+    lines.add("## Another Header");
+    lines.add("- [[subquestion:::subanswer");
+
+    MarkdownParser parser = new MarkdownParser(lines);
+    QuestionFile file = parser.parse("name",
+        FileTime.fromMillis(0), FileTime.fromMillis(0));
+
+    ArrayList<QuestionFile> files = new ArrayList<>();
+    files.add(file);
+    assertEquals(new SrFileGenerator(files).generate(), """
+            H question
+            answer
+            
+            H subquestion
+            subanswer
+            
+            """
+        );
+  }
+
+  @Test
+  public void testQuestionsNotMatch() {
+    ArrayList<String> lines = new ArrayList<>();
+    lines.add("# Header 1");
+    lines.add("- [[just a phrase]]");
+    lines.add("- [[question::answer]]");
+    lines.add("- nothing:::nothing");
+    lines.add("- :: :");
+    lines.add("- [[: : :]]");
+    lines.add("- [[: ::]]");
+    lines.add("- :[[::]]:");
+    lines.add("- [[a::a:]::]]");
+
+    MarkdownParser parser = new MarkdownParser(lines);
+    QuestionFile file = parser.parse("name",
+        FileTime.fromMillis(0), FileTime.fromMillis(0));
+    assertEquals(0, file.getQuestions().size());
   }
 }
