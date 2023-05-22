@@ -53,7 +53,7 @@ class UiControllerTest {
     try {
       controller.showQuestion(q1);
 
-      assertEquals(output.toString(), "Q1Q");
+      assertEquals(output.toString(), "Q1Q\n");
     } catch (IOException e) {
       fail();
     }
@@ -72,7 +72,7 @@ class UiControllerTest {
     try {
       controller.showAnswer(q1);
 
-      assertEquals(output.toString(), "Q1A");
+      assertEquals(output.toString(), "Q1A\n");
     } catch (IOException e) {
       fail();
     }
@@ -129,7 +129,8 @@ class UiControllerTest {
           0 questions flipped from hard to easy.
           0 questions flipped from easy to hard.
           Currently there are 1 hard questions.
-          Currently there are 2 easy questions.""");
+          Currently there are 2 easy questions.
+          """);
     } catch (IOException e) {
       fail();
     }
@@ -148,7 +149,7 @@ class UiControllerTest {
     try {
       assertEquals(controller.getMax(), 123);
 
-      assertEquals(output.toString(), "How many questions do you want in this study session:");
+      assertEquals(output.toString(), "How many questions do you want in this study session:\n");
     } catch (IOException e) {
       fail();
     }
@@ -167,7 +168,7 @@ class UiControllerTest {
     try {
       assertEquals(controller.getPath(), "some/path/to/something");
 
-      assertEquals(output.toString(), "Input the path to the SR file:");
+      assertEquals(output.toString(), "Input the path to the SR file:\n");
     } catch (IOException e) {
       fail();
     }

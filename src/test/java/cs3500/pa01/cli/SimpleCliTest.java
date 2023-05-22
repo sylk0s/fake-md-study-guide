@@ -24,7 +24,7 @@ class SimpleCliTest {
       fail();
     }
 
-    assertEquals(output.toString(), "Question:");
+    assertEquals(output.toString(), "Question:\n");
   }
 
   @Test
@@ -43,7 +43,7 @@ class SimpleCliTest {
       fail();
     }
 
-    assertEquals(output.toString(), "Question:");
+    assertEquals(output.toString(), "Question:\n");
   }
 
   @Test
@@ -62,7 +62,7 @@ class SimpleCliTest {
       fail();
     }
 
-    assertEquals(output.toString(), "Question:");
+    assertEquals(output.toString(), "Question:\n");
   }
 
   @Test
@@ -81,7 +81,7 @@ class SimpleCliTest {
       fail();
     }
 
-    assertEquals(output.toString(), "aaa");
+    assertEquals(output.toString(), "aaa\n");
 
     try {
       cli.displayString("bbb");
@@ -89,6 +89,6 @@ class SimpleCliTest {
       fail();
     }
 
-    assertEquals(output.toString(), "aaabbb");
+    assertEquals(output.toString(), "aaa\nbbb\n");
   }
 }
