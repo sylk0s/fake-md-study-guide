@@ -149,6 +149,9 @@ public class Session {
     }
   }
 
+  /**
+   * Update the counts of the easy and hard problems
+   */
   private void updateTypeCounts() {
     this.hard = qb.numOfType(QuestionType.HARD);
     this.easy = qb.numOfType(QuestionType.EASY);

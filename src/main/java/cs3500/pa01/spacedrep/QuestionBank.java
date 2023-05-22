@@ -17,7 +17,13 @@ public class QuestionBank implements Iterator<Question> {
 
   private int curr;
 
-  QuestionBank(ArrayList<QuestionFile> files, int max) {
+  /**
+   * Constructor
+   *
+   * @param files The files to draw questions from
+   * @param max The max number of questions in this bank
+   */
+  public QuestionBank(ArrayList<QuestionFile> files, int max) {
     this.max = max;
     this.curr = 0;
     this.questions = new ArrayList<>();
