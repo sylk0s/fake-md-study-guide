@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import cs3500.pa01.spacedrep.Question;
 import cs3500.pa01.spacedrep.QuestionType;
 import cs3500.pa01.spacedrep.SrFile;
-import java.nio.file.attribute.FileTime;
 import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
@@ -26,7 +25,7 @@ class SrParserTest {
     questions.add(q1);
     questions.add(q2);
     assertEquals(new SrParser(lines)
-            .parse("", FileTime.fromMillis(0), FileTime.fromMillis(0))
+            .parse()
             .toString(),
         new SrFile(questions).toString());
   }
@@ -34,7 +33,7 @@ class SrParserTest {
   @Test
   public void testEmptyInput() {
     assertEquals(new SrParser(new ArrayList<>())
-        .parse("", FileTime.fromMillis(0), FileTime.fromMillis(0))
+        .parse()
             .toString(), new SrFile(new ArrayList<>()).toString());
   }
 
@@ -56,7 +55,7 @@ class SrParserTest {
     String contents = sb.toString();
 
     assertEquals(new SrParser(lines)
-            .parse("", FileTime.fromMillis(0), FileTime.fromMillis(0))
+            .parse()
             .toString(),
         contents);
   }

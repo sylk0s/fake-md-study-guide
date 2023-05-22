@@ -211,8 +211,7 @@ class MarkdownParserTest {
             H subquestion
             subanswer
             
-            """
-        );
+            """);
   }
 
   @Test

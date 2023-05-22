@@ -5,7 +5,6 @@ import cs3500.pa01.files.FileIo;
 import cs3500.pa01.files.QuestionFile;
 import cs3500.pa01.parsing.SrParser;
 import java.io.IOException;
-import java.nio.file.attribute.FileTime;
 import java.util.ArrayList;
 
 /**
@@ -78,7 +77,7 @@ public class Session {
     // Read in the SR file
 
     QuestionFile sr = new SrParser(FileIo.readFile(path))
-        .parse(path, FileTime.fromMillis(0), FileTime.fromMillis(0));
+        .parse();
 
     // Turn the SR file into a question bank
     ArrayList<QuestionFile> files = new ArrayList<>();
