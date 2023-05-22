@@ -44,6 +44,14 @@ class SessionTest {
 
   @Test
   public void testToHard() {
+    this.session.questionToHard(this.q2);
+    assertEquals(this.session.summary(), """
+        You answered 0 questions.
+        0 questions flipped from hard to easy.
+        0 questions flipped from easy to hard.
+        Currently there are 1 hard questions.
+        Currently there are 2 easy questions.""");
+
     this.session.questionToHard(this.q1);
     assertEquals(this.session.summary(), """
         You answered 0 questions.

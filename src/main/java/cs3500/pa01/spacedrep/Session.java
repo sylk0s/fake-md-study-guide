@@ -110,12 +110,20 @@ public class Session {
   public void run() {
     while (this.qb.hasNext()) {
       Question q = this.qb.next();
-      this.ui.showQuestion(q);
-      this.ui.updateQuestion(q, this);
-      questionsAnswered += 1;
+      try {
+        this.ui.showQuestion(q);
+        this.ui.updateQuestion(q, this);
+        questionsAnswered += 1;
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
     }
 
-    this.ui.showSummary(this);
+    try {
+      this.ui.showSummary(this);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
 
     // Write updates SR file using question bank's questions
     SrFile sr = new SrFile(this.qb.getFinalQuestions());

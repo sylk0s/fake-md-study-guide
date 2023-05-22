@@ -27,17 +27,17 @@ public class UiController {
     this.ui = new SimpleCli(input, output);
   }
 
+  public UiController(Ui ui) {
+    this.ui = ui;
+  }
+
   /**
    * Displays the following question on the screen
    *
    * @param q The question to display
    */
-  public void showQuestion(Question q) {
-    try {
-      this.ui.displayString(q.getQuestion());
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+  public void showQuestion(Question q) throws IOException {
+    this.ui.displayString(q.getQuestion());
   }
 
   /**
@@ -45,12 +45,8 @@ public class UiController {
    *
    * @param q The question of whose answer should be displayed
    */
-  public void showAnswer(Question q) {
-    try {
-      this.ui.displayString(q.getAnswer());
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+  public void showAnswer(Question q) throws IOException {
+    this.ui.displayString(q.getAnswer());
   }
 
   /**
@@ -59,27 +55,23 @@ public class UiController {
    * @param q The question that could be updated
    * @param session The current session
    */
-  public void updateQuestion(Question q, Session session) {
-    try {
-      String s = this.ui.getInput("""
-          Question options:
-            1) Mark easy
-            2) Mark hard
-            3) Show answer
-            4) Continue
-          """);
-      switch (s) {
-        case "1" -> session.questionToEasy(q);
-        case "2" -> session.questionToHard(q);
-        case "3" -> {
-          this.showAnswer(q);
-          this.ui.getInput("Press enter to show the next question...");
-        }
-        default -> {
-        }
+  public void updateQuestion(Question q, Session session) throws IOException {
+    String s = this.ui.getInput("""
+        Question options:
+          1) Mark easy
+          2) Mark hard
+          3) Show answer
+          4) Continue
+        """);
+    switch (s) {
+      case "1" -> session.questionToEasy(q);
+      case "2" -> session.questionToHard(q);
+      case "3" -> {
+        this.showAnswer(q);
+        this.ui.getInput("Press enter to show the next question...");
       }
-    } catch (IOException e) {
-      e.printStackTrace();
+      default -> {
+      }
     }
   }
 
@@ -88,12 +80,8 @@ public class UiController {
    *
    * @param s The current session
    */
-  public void showSummary(Session s) {
-    try {
-      this.ui.displayString(s.summary());
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+  public void showSummary(Session s) throws IOException {
+    this.ui.displayString(s.summary());
   }
 
   /**
@@ -101,13 +89,8 @@ public class UiController {
    *
    * @return A number representing the maximum number of questions in this study section
    */
-  public int getMax() {
-    try {
-      return this.ui.getInt("How many questions do you want in this study session:");
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-    return 0;
+  public int getMax() throws IOException {
+    return this.ui.getInt("How many questions do you want in this study session:");
   }
 
   /**
@@ -115,12 +98,7 @@ public class UiController {
    *
    * @return A string representing a path to a sr file
    */
-  public String getPath() {
-    try {
-      return this.ui.getInput("Input the path to the SR file:");
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-    return "";
+  public String getPath() throws IOException {
+    return this.ui.getInput("Input the path to the SR file:");
   }
 }
