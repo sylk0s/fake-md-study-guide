@@ -13,6 +13,12 @@ public class SimpleCli implements Ui {
 
   private final Scanner scanner;
 
+  /**
+   * Constructor
+   *
+   * @param input Something that the input can be read from
+   * @param output Something the output can be appended to
+   */
   public SimpleCli(Readable input, Appendable output) {
     this.input = input;
     this.output = output;

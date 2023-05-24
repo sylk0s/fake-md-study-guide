@@ -68,7 +68,8 @@ public class UiController {
       case "2" -> session.questionToHard(q);
       case "3" -> {
         this.showAnswer(q);
-        // This will show the options AGAIN so the user can choose to re-mark it after viewing the answer
+        // This will show the options AGAIN so the user can choose to re-mark it
+        // after viewing the answer
         this.updateQuestion(q, session);
       }
       case "5" -> session.end();

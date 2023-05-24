@@ -32,6 +32,7 @@ public class SrParser {
 
   /**
    * Parses some information about a file into an SrFile
+   *
    * @return A file object that can be used to generate a summary of the files
    */
   //@Override

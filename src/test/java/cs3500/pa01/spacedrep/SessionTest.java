@@ -37,8 +37,9 @@ class SessionTest {
     this.session = new Session(this.qb);
   }
 
+  // Simulates the user's interactions with the program
   @Test
-  public void testRun1() {
+  public void testRun() {
     try {
 
       // Reset the contents of the file
@@ -107,7 +108,6 @@ class SessionTest {
     } catch (IOException e) {
       fail();
     }
-
   }
 
   @Test
@@ -157,5 +157,61 @@ class SessionTest {
         0 questions flipped from easy to hard.
         Currently there are 0 hard questions.
         Currently there are 3 easy questions.""");
+  }
+
+  // Can't test end directly, so this tests it's side-effect on the loop
+  @Test
+  public void testEnd() {
+    try {
+      // Reset the contents of the file
+      FileIo.writeFile("sampleData/srgeneration/example.sr",
+          """
+              E Q2Q
+              Q2A
+                            
+              H Q1Q
+              Q1A
+                            
+              E Doesn't get called
+              Nonexistent
+              
+              """);
+
+      // This mimics the user's input
+      // Here, the user specifies example.sr
+      // 2 questions max
+      // for the first question, mark it as easy
+      // for the second question, show the answer
+      // then press enter to show the summary since there are no more questions
+      Readable input = new StringReader("""
+          sampleData/srgeneration/example.sr
+          2
+          5
+          
+          """);
+      Appendable output = new StringBuilder();
+      UiController controller = new UiController(input, output);
+      Session session1 = new Session(controller);
+      session1.run();
+
+      assertEquals(output.toString(), """
+          Input the path to the SR file:
+          How many questions do you want in this study session:
+          Question: Q1Q
+          Options:
+            1) Mark easy
+            2) Mark hard
+            3) Show answer
+            4) Continue
+            5) Exit
+          You answered 1 questions.
+          0 questions flipped from hard to easy.
+          0 questions flipped from easy to hard.
+          Currently there are 1 hard questions.
+          Currently there are 2 easy questions.
+          """);
+    } catch (IOException e) {
+      fail();
+    }
   }
 }
