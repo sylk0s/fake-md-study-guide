@@ -85,8 +85,9 @@ public class MarkdownParser {
       }
     }
 
+    if (lines.size() > 1)
     // Catches the stuff at the end of the file
-    addPhrases(headerBlock);
+      addPhrases(headerBlock);
   }
 
   /**

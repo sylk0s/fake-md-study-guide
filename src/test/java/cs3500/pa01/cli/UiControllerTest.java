@@ -102,14 +102,62 @@ class UiControllerTest {
       fail();
     }
 
-    // TODO fix this <3
-    /*
-    Readable input3 = new StringReader("3");
-    UiController controller3 = new UiController(input3, output);
+    try {
+      Readable input3 = new StringReader("""
+          1""");
+      Appendable output3 = new StringBuilder();
+      UiController controller3 = new UiController(input3, output3);
 
-    controller3.updateQuestion(this.q2, this.session);
-    assertEquals(output.toString(), "Q2A\nPress enter to show the next question...");
-    */
+      controller3.updateQuestion(this.q2, this.session);
+      assertEquals(output3.toString(), """
+          Question options:
+            1) Mark easy
+            2) Mark hard
+            3) Show answer
+            4) Continue
+            """);
+      assertEquals(this.q2.getType(), QuestionType.EASY);
+    } catch (IOException e) {
+      fail();
+    }
+
+    try {
+      Readable input4 = new StringReader("""
+          2""");
+      Appendable output4 = new StringBuilder();
+      UiController controller4 = new UiController(input4, output4);
+
+      controller4.updateQuestion(this.q2, this.session);
+      assertEquals(output4.toString(), """
+          Question options:
+            1) Mark easy
+            2) Mark hard
+            3) Show answer
+            4) Continue
+            """);
+      assertEquals(this.q2.getType(), QuestionType.HARD);
+    } catch (IOException e) {
+      fail();
+    }
+
+    try {
+      Readable input5 = new StringReader("3\n\n");
+      Appendable output5 = new StringBuilder();
+      UiController controller5 = new UiController(input5, output5);
+
+      controller5.updateQuestion(this.q2, this.session);
+      assertEquals(output5.toString(), """
+          Question options:
+            1) Mark easy
+            2) Mark hard
+            3) Show answer
+            4) Continue
+          Q2A
+          Press enter to show the next question...
+          """);
+    } catch (IOException e) {
+      fail();
+    }
   }
 
   @Test

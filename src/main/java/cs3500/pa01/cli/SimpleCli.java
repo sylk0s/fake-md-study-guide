@@ -11,9 +11,12 @@ public class SimpleCli implements Ui {
   private final Readable input;
   private final Appendable output;
 
+  private final Scanner scanner;
+
   public SimpleCli(Readable input, Appendable output) {
     this.input = input;
     this.output = output;
+    this.scanner = new Scanner(this.input);
   }
 
   /**
@@ -34,9 +37,8 @@ public class SimpleCli implements Ui {
    */
   @Override
   public String getInput(String prompt) throws IOException {
-    this.output.append(prompt).append("\n");
-    Scanner sc = new Scanner(this.input);
-    return sc.nextLine();
+    this.displayString(prompt);
+    return this.scanner.nextLine();
   }
 
   /**
@@ -47,8 +49,7 @@ public class SimpleCli implements Ui {
    */
   @Override
   public int getInt(String prompt) throws IOException {
-    this.output.append(prompt).append("\n");
-    Scanner sc = new Scanner(this.input);
-    return sc.nextInt();
+    this.displayString(prompt);
+    return this.scanner.nextInt();
   }
 }
