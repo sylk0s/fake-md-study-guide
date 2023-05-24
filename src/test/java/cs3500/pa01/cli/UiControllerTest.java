@@ -53,7 +53,7 @@ class UiControllerTest {
     try {
       controller.showQuestion(q1);
 
-      assertEquals(output.toString(), "Q1Q\n");
+      assertEquals(output.toString(), "Question: Q1Q\n");
     } catch (IOException e) {
       fail();
     }
@@ -72,7 +72,7 @@ class UiControllerTest {
     try {
       controller.showAnswer(q1);
 
-      assertEquals(output.toString(), "Q1A\n");
+      assertEquals(output.toString(), "Answer: Q1A\n");
     } catch (IOException e) {
       fail();
     }
@@ -110,11 +110,12 @@ class UiControllerTest {
 
       controller3.updateQuestion(this.q2, this.session);
       assertEquals(output3.toString(), """
-          Question options:
+          Options:
             1) Mark easy
             2) Mark hard
             3) Show answer
             4) Continue
+            5) Exit
             """);
       assertEquals(this.q2.getType(), QuestionType.EASY);
     } catch (IOException e) {
@@ -129,11 +130,12 @@ class UiControllerTest {
 
       controller4.updateQuestion(this.q2, this.session);
       assertEquals(output4.toString(), """
-          Question options:
+          Options:
             1) Mark easy
             2) Mark hard
             3) Show answer
             4) Continue
+            5) Exit
             """);
       assertEquals(this.q2.getType(), QuestionType.HARD);
     } catch (IOException e) {
@@ -141,19 +143,25 @@ class UiControllerTest {
     }
 
     try {
-      Readable input5 = new StringReader("3\n\n");
+      Readable input5 = new StringReader("3\n4\n");
       Appendable output5 = new StringBuilder();
       UiController controller5 = new UiController(input5, output5);
 
       controller5.updateQuestion(this.q2, this.session);
       assertEquals(output5.toString(), """
-          Question options:
+          Options:
             1) Mark easy
             2) Mark hard
             3) Show answer
             4) Continue
-          Q2A
-          Press enter to show the next question...
+            5) Exit
+          Answer: Q2A
+          Options:
+            1) Mark easy
+            2) Mark hard
+            3) Show answer
+            4) Continue
+            5) Exit
           """);
     } catch (IOException e) {
       fail();

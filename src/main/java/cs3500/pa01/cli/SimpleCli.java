@@ -38,7 +38,13 @@ public class SimpleCli implements Ui {
   @Override
   public String getInput(String prompt) throws IOException {
     this.displayString(prompt);
-    return this.scanner.nextLine();
+    String ans = this.scanner.nextLine();
+
+    // This fixes a weird bug that occurred
+    while (ans.isEmpty()) {
+      ans = this.scanner.nextLine();
+    }
+    return ans;
   }
 
   /**

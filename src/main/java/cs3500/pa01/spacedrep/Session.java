@@ -49,6 +49,8 @@ public class Session {
 
   private final String path;
 
+  private boolean run;
+
   // TODO clean the redundant constructors
 
   /**
@@ -65,6 +67,11 @@ public class Session {
     this.hard = qb.numOfType(QuestionType.HARD);
     this.easy = qb.numOfType(QuestionType.EASY);
     this.path = "";
+    this.run = true;
+  }
+
+  public Session() throws IOException {
+    this(new UiController());
   }
 
   /**
@@ -72,8 +79,8 @@ public class Session {
    *
    * @throws IOException Error from reading the file
    */
-  public Session() throws IOException {
-    this.ui = new UiController();
+  public Session(UiController ui) throws IOException {
+    this.ui = ui;
     // Get the path to the SR file to read
     this.path = this.ui.getPath();
 
@@ -91,6 +98,7 @@ public class Session {
     this.easyToHard = 0;
     this.easy = this.qb.numOfType(QuestionType.EASY);
     this.hard = this.qb.numOfType(QuestionType.HARD);
+    this.run = true;
   }
 
   /**
@@ -110,7 +118,7 @@ public class Session {
    * Run this session
    */
   public void run() {
-    while (this.qb.hasNext()) {
+    while (this.qb.hasNext() && this.run) {
       Question q = this.qb.next();
       try {
         this.ui.showQuestion(q);
@@ -166,5 +174,12 @@ public class Session {
   private void updateTypeCounts() {
     this.hard = qb.numOfType(QuestionType.HARD);
     this.easy = qb.numOfType(QuestionType.EASY);
+  }
+
+  /**
+   * Stops the running session
+   */
+  public void end() {
+    this.run = false;
   }
 }

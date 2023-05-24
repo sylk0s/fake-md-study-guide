@@ -37,7 +37,7 @@ public class UiController {
    * @param q The question to display
    */
   public void showQuestion(Question q) throws IOException {
-    this.ui.displayString(q.getQuestion());
+    this.ui.displayString("Question: " + q.getQuestion());
   }
 
   /**
@@ -46,7 +46,7 @@ public class UiController {
    * @param q The question of whose answer should be displayed
    */
   public void showAnswer(Question q) throws IOException {
-    this.ui.displayString(q.getAnswer());
+    this.ui.displayString("Answer: " + q.getAnswer());
   }
 
   /**
@@ -57,18 +57,21 @@ public class UiController {
    */
   public void updateQuestion(Question q, Session session) throws IOException {
     String s = this.ui.getInput("""
-        Question options:
+        Options:
           1) Mark easy
           2) Mark hard
           3) Show answer
-          4) Continue""");
+          4) Continue
+          5) Exit""");
     switch (s) {
       case "1" -> session.questionToEasy(q);
       case "2" -> session.questionToHard(q);
       case "3" -> {
         this.showAnswer(q);
-        this.ui.getInput("Press enter to show the next question...");
+        // This will show the options AGAIN so the user can choose to re-mark it after viewing the answer
+        this.updateQuestion(q, session);
       }
+      case "5" -> session.end();
       default -> {
       }
     }
