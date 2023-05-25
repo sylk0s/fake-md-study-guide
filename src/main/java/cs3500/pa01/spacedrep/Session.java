@@ -70,6 +70,11 @@ public class Session {
     this.run = true;
   }
 
+  /**
+   * Constructor for a session
+   *
+   * @throws IOException Error from reading SR file
+   */
   public Session() throws IOException {
     this(new UiController());
   }
@@ -77,6 +82,7 @@ public class Session {
   /**
    * Creates a new default session from user generated inputs
    *
+   * @param ui The UI controller this session uses to interact with the UI
    * @throws IOException Error from reading the file
    */
   public Session(UiController ui) throws IOException {
@@ -116,6 +122,8 @@ public class Session {
 
   /**
    * Run this session
+   *
+   * @throws IOException On an error reading from the input stream
    */
   public void run() throws IOException {
     while (this.qb.hasNext() && this.run) {

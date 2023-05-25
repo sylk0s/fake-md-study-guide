@@ -4,6 +4,9 @@ import cs3500.pa01.spacedrep.Question;
 import cs3500.pa01.spacedrep.Session;
 import java.io.IOException;
 
+/**
+ * A Mock Ui class that throws an error on update question
+ */
 public class MockUi extends UiController {
   @Override
   public int getMax() {

@@ -67,11 +67,22 @@ public class QuestionBank implements Iterator<Question> {
     return this.questionsIter.next();
   }
 
+  /**
+   * The number of questions with a certain type
+   *
+   * @param type The type of the question to count
+   * @return The number of questions with Type type
+   */
   public int numOfType(QuestionType type) {
     return this.questions.stream().filter((q) -> q.getType().equals(type))
         .collect(Collectors.toCollection(ArrayList::new)).size();
   }
 
+  /**
+   * Returns the list of questions this object contains
+   *
+   * @return An arraylist of the questions
+   */
   public ArrayList<Question> getFinalQuestions() {
     return this.questions;
   }

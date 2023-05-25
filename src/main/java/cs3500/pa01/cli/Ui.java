@@ -11,6 +11,8 @@ public interface Ui {
    * Display a string to the user
    *
    * @param s The string to display
+   *
+   * @throws IOException on failing to append to the output stream
    */
   void displayString(String s) throws IOException;
 
@@ -19,6 +21,8 @@ public interface Ui {
    *
    * @param prompt The prompt to display the user
    * @return The value input
+   *
+   * @throws IOException on failing to read from the input stream
    */
   String getInput(String prompt) throws IOException;
 
@@ -27,6 +31,8 @@ public interface Ui {
    *
    * @param prompt The prompt to display the user
    * @return The value input
+   *
+   * @throws IOException on failing to read from the input stream
    */
   int getInt(String prompt) throws IOException;
 }

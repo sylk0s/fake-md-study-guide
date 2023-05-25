@@ -35,6 +35,8 @@ public class UiController {
    * Displays the following question on the screen
    *
    * @param q The question to display
+   *
+   * @throws IOException on failing to append to the output stream
    */
   public void showQuestion(Question q) throws IOException {
     this.ui.displayString("Question: " + q.getQuestion());
@@ -44,6 +46,8 @@ public class UiController {
    * Display the answer to a question on the screen
    *
    * @param q The question of whose answer should be displayed
+   *
+   * @throws IOException on failing to read from the input
    */
   public void showAnswer(Question q) throws IOException {
     this.ui.displayString("Answer: " + q.getAnswer());
@@ -54,6 +58,8 @@ public class UiController {
    *
    * @param q The question that could be updated
    * @param session The current session
+   *
+   * @throws IOException on failing to read or write
    */
   public void updateQuestion(Question q, Session session) throws IOException {
     String s = this.ui.getInput("""
@@ -82,6 +88,8 @@ public class UiController {
    * Display the summary of this session
    *
    * @param s The current session
+   *
+   * @throws IOException on failing to write to output
    */
   public void showSummary(Session s) throws IOException {
     this.ui.displayString(s.summary());
@@ -91,6 +99,8 @@ public class UiController {
    * Get the max number of questions in this study session
    *
    * @return A number representing the maximum number of questions in this study section
+   *
+   * @throws IOException on failing to read from the input
    */
   public int getMax() throws IOException {
     return this.ui.getInt("How many questions do you want in this study session:");
@@ -100,6 +110,8 @@ public class UiController {
    * Get the path to the SR file for this session
    *
    * @return A string representing a path to a sr file
+   *
+   * @throws IOException on failing to read from the input
    */
   public String getPath() throws IOException {
     return this.ui.getInput("Input the path to the SR file:");

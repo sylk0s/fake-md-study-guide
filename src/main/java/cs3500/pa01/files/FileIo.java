@@ -28,6 +28,7 @@ public class FileIo {
    * @param path A String representing the path
    *
    * @return An ArrayList representing the lines of the file
+   * @throws IOException when the file fails to be read
    */
   public static ArrayList<String> readFile(String path) throws IOException {
     Path p = getPath(path);

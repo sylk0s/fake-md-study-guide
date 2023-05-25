@@ -4,7 +4,13 @@ package cs3500.pa01.spacedrep;
  * Represent the possible difficulty of a question
  */
 public enum QuestionType {
+  /**
+   * An easy question
+   */
   EASY("E"),
+  /**
+   * A hard question
+   */
   HARD("H");
 
   /**
