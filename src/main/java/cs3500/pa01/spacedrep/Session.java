@@ -117,23 +117,15 @@ public class Session {
   /**
    * Run this session
    */
-  public void run() {
+  public void run() throws IOException {
     while (this.qb.hasNext() && this.run) {
       Question q = this.qb.next();
-      try {
-        this.ui.showQuestion(q);
-        this.ui.updateQuestion(q, this);
-        questionsAnswered += 1;
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
+      this.ui.showQuestion(q);
+      this.ui.updateQuestion(q, this);
+      questionsAnswered += 1;
     }
 
-    try {
-      this.ui.showSummary(this);
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+    this.ui.showSummary(this);
 
     // Write updates SR file using question bank's questions
     SrFile sr = new SrFile(this.qb.getFinalQuestions());

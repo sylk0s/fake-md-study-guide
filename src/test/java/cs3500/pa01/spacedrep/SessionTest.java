@@ -1,8 +1,11 @@
 package cs3500.pa01.spacedrep;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import cs3500.pa01.cli.MockCli;
+import cs3500.pa01.cli.MockUi;
 import cs3500.pa01.cli.UiController;
 import cs3500.pa01.files.FileIo;
 import cs3500.pa01.files.QuestionFile;
@@ -213,5 +216,11 @@ class SessionTest {
     } catch (IOException e) {
       fail();
     }
+  }
+
+  @Test
+  public void testSessionExceptions() {
+    assertThrows(IOException.class, () -> new Session(new UiController(new MockCli())));
+    assertThrows(IOException.class, () -> new Session(new MockUi()).run());
   }
 }
