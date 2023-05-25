@@ -101,15 +101,17 @@ public class Session {
       this.ui.showQuestion(q);
       this.ui.updateQuestion(q, this);
       questionsAnswered += 1;
+
+      // Now updates files as it's going rather than at the end!
+
+      // Write updates SR file using question bank's questions
+      SrFile sr = new SrFile(this.qb.getFinalQuestions());
+
+      // Write file
+      FileIo.writeFile(this.path, sr.toString());
     }
 
     this.ui.showSummary(this);
-
-    // Write updates SR file using question bank's questions
-    SrFile sr = new SrFile(this.qb.getFinalQuestions());
-
-    // Write file
-    FileIo.writeFile(this.path, sr.toString());
   }
 
   /**
