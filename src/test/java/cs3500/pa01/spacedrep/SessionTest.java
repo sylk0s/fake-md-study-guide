@@ -65,6 +65,8 @@ class SessionTest {
       // for the first question, mark it as easy
       // for the second question, show the answer
       // then press enter to show the summary since there are no more questions
+      // Also the things i had to do to get this to handle multiple lines of input
+      // like this are really stupid and annoying
       Readable input = new StringReader("""
           sampleData/srgeneration/example.sr
           2
@@ -108,6 +110,25 @@ class SessionTest {
           Currently there are 0 hard questions.
           Currently there are 3 easy questions.
           """);
+    } catch (IOException e) {
+      fail();
+    }
+
+    // Confirms that the file has changed!
+    try {
+      assertEquals(FileIo.readFile("sampleData/srgeneration/example.sr")
+              .stream().reduce("", (acc, line) -> acc + line + "\n")
+          , """
+              E Q1Q
+              Q1A
+              
+              E Q2Q
+              Q2A
+                            
+              E Doesn't get called
+              Nonexistent
+              
+              """);
     } catch (IOException e) {
       fail();
     }
