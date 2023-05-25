@@ -69,7 +69,6 @@ class DriverTest {
   public void superComplexTest() {
     try {
       Driver.main(new String[] {"sampleData/tests1", "filename", "sampleData/out/out1"});
-
       assertEquals(FileIo.readFile("sampleData/out/out1.md").stream()
           .reduce("", (acc, x) -> acc + x + "\n", String::concat),
           """
