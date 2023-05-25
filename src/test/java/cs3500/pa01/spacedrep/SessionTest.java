@@ -117,8 +117,8 @@ class SessionTest {
     // Confirms that the file has changed!
     try {
       assertEquals(FileIo.readFile("sampleData/srgeneration/example.sr")
-              .stream().reduce("", (acc, line) -> acc + line + "\n")
-          , """
+              .stream().reduce("", (acc, line) -> acc + line + "\n"),
+          """
               E Q1Q
               Q1A
               
