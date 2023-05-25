@@ -32,7 +32,7 @@ class QuestionTest {
   @Test
   public void testGetSetType() {
     assertEquals(this.q1.getType(), QuestionType.HARD);
-    this.q1.changeType(QuestionType.EASY);
+    this.q1.flipType();
     assertEquals(this.q1.getType(), QuestionType.EASY);
   }
 }

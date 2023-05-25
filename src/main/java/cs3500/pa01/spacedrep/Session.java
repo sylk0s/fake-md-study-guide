@@ -27,26 +27,6 @@ public class Session {
    */
   private int questionsAnswered;
 
-  /**
-   * The number of questions that have flipped from hard to easy
-   */
-  private int hardToEasy;
-
-  /**
-   * The number of questions that have flipped from easy to hard
-   */
-  private int easyToHard;
-
-  /**
-   * The number of unique hard questions in the session
-   */
-  private int hard;
-
-  /**
-   * The number of unique easy question in the session
-   */
-  private int easy;
-
   private final String path;
 
   private boolean run;
@@ -60,10 +40,6 @@ public class Session {
     this.ui = new UiController();
     this.qb = qb;
     this.questionsAnswered = 0;
-    this.hardToEasy = 0;
-    this.easyToHard = 0;
-    this.hard = qb.numOfType(QuestionType.HARD);
-    this.easy = qb.numOfType(QuestionType.EASY);
     this.path = "";
     this.run = true;
   }
@@ -98,10 +74,6 @@ public class Session {
     files.add(sr);
     this.qb = new QuestionBank(files, this.ui.getMax());
     this.questionsAnswered = 0;
-    this.hardToEasy = 0;
-    this.easyToHard = 0;
-    this.easy = this.qb.numOfType(QuestionType.EASY);
-    this.hard = this.qb.numOfType(QuestionType.HARD);
     this.run = true;
   }
 
@@ -112,10 +84,10 @@ public class Session {
    */
   public String summary() {
     return "You answered " + questionsAnswered + " questions.\n"
-        + hardToEasy + " questions flipped from hard to easy.\n"
-        + easyToHard + " questions flipped from easy to hard.\n"
-        + "Currently there are " + hard + " hard questions.\n"
-        + "Currently there are " + easy + " easy questions.";
+        + this.qb.getFlippedTo(QuestionType.EASY) + " questions flipped from hard to easy.\n"
+        + this.qb.getFlippedTo(QuestionType.HARD) + " questions flipped from easy to hard.\n"
+        + "Currently there are " + this.qb.numOfType(QuestionType.HARD) + " hard questions.\n"
+        + "Currently there are " + this.qb.numOfType(QuestionType.EASY) + " easy questions.";
   }
 
   /**
@@ -141,37 +113,15 @@ public class Session {
   }
 
   /**
-   * Change a question to hard
+   * Switch the type of the question to type
    *
-   * @param q The question to change
+   * @param q The question to switch types on
+   * @param type The type to switch to
    */
-  public void questionToHard(Question q) {
-    if (q.getType() != QuestionType.HARD) {
-      q.changeType(QuestionType.HARD);
-      this.easyToHard += 1;
-      updateTypeCounts();
+  public void switchTypeTo(Question q, QuestionType type) {
+    if (!q.getType().equals(type)) {
+      q.flipType();
     }
-  }
-
-  /**
-   * Change a question to easy
-   *
-   * @param q The question to change
-   */
-  public void questionToEasy(Question q) {
-    if (q.getType() != QuestionType.EASY) {
-      q.changeType(QuestionType.EASY);
-      this.hardToEasy += 1;
-      updateTypeCounts();
-    }
-  }
-
-  /**
-   * Update the counts of the easy and hard problems
-   */
-  private void updateTypeCounts() {
-    this.hard = qb.numOfType(QuestionType.HARD);
-    this.easy = qb.numOfType(QuestionType.EASY);
   }
 
   /**

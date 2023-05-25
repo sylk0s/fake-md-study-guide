@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
  */
 public class QuestionBank implements Iterator<Question> {
   private final ArrayList<Question> questions;
-  private final Iterator<Question> questionsIter;
+  private Iterator<Question> questionsIter;
   private final int max;
 
   private int curr;
@@ -27,20 +27,30 @@ public class QuestionBank implements Iterator<Question> {
     this.max = max;
     this.curr = 0;
     this.questions = new ArrayList<>();
+    if (files.size() == 0) {
+      throw new IllegalArgumentException("No files to generation question from");
+    }
     for (QuestionFile qf : files) {
       questions.addAll(qf.getQuestions());
     }
 
     // This sorting basically just puts all hard questions before all easy questions
     // No other promises are made about the order
-    questions.sort((a, b) -> {
+    this.sortQuestions();
+    this.questionsIter = questions.iterator();
+  }
+
+  /**
+   * Sorts the questions by difficulty putting hard one first
+   */
+  private void sortQuestions() {
+    this.questions.sort((a, b) -> {
       if (a.getType() == QuestionType.HARD) {
         return -1;
       } else {
         return 0;
       }
     });
-    this.questionsIter = questions.iterator();
   }
 
   /**
@@ -52,7 +62,7 @@ public class QuestionBank implements Iterator<Question> {
    */
   @Override
   public boolean hasNext() {
-    return this.max > this.curr && this.questionsIter.hasNext();
+    return this.max > this.curr;
   }
 
   /**
@@ -63,6 +73,13 @@ public class QuestionBank implements Iterator<Question> {
    */
   @Override
   public Question next() {
+    if (this.max <= this.curr) {
+      throw new NoSuchElementException();
+    }
+    if (!this.questionsIter.hasNext()) {
+      this.sortQuestions();
+      this.questionsIter = this.questions.iterator();
+    }
     this.curr += 1;
     return this.questionsIter.next();
   }
@@ -71,10 +88,31 @@ public class QuestionBank implements Iterator<Question> {
    * The number of questions with a certain type
    *
    * @param type The type of the question to count
-   * @return The number of questions with Type type
+   * @return The number of questions with type
    */
   public int numOfType(QuestionType type) {
+    return this.allOfType(type).size();
+  }
+
+  /**
+   * Get all items currently of type
+   *
+   * @param type The type of the item
+   * @return An ArrayList of the items
+   */
+  private ArrayList<Question> allOfType(QuestionType type) {
     return this.questions.stream().filter((q) -> q.getType().equals(type))
+        .collect(Collectors.toCollection(ArrayList::new));
+  }
+
+  /**
+   * Get the number of questions that have been flipped to a type
+   *
+   * @param type The type that the items were flipped to
+   * @return How many items were flipperd
+   */
+  public int getFlippedTo(QuestionType type) {
+    return this.allOfType(type).stream().filter(Question::hasBeenFlipped)
         .collect(Collectors.toCollection(ArrayList::new)).size();
   }
 

@@ -125,7 +125,7 @@ class SessionTest {
 
   @Test
   public void testToHard() {
-    this.session.questionToHard(this.q2);
+    this.session.switchTypeTo(this.q2, QuestionType.HARD);
     assertEquals(this.session.summary(), """
         You answered 0 questions.
         0 questions flipped from hard to easy.
@@ -133,7 +133,7 @@ class SessionTest {
         Currently there are 1 hard questions.
         Currently there are 2 easy questions.""");
 
-    this.session.questionToHard(this.q1);
+    this.session.switchTypeTo(this.q1, QuestionType.HARD);
     assertEquals(this.session.summary(), """
         You answered 0 questions.
         0 questions flipped from hard to easy.
@@ -145,7 +145,7 @@ class SessionTest {
   @Test
   public void testToEasy() {
     // Does nothing, since this question doesn't change state
-    this.session.questionToHard(this.q2);
+    this.session.switchTypeTo(this.q1, QuestionType.EASY);
     assertEquals(this.session.summary(), """
         You answered 0 questions.
         0 questions flipped from hard to easy.
@@ -153,7 +153,7 @@ class SessionTest {
         Currently there are 1 hard questions.
         Currently there are 2 easy questions.""");
 
-    this.session.questionToEasy(this.q2);
+    this.session.switchTypeTo(this.q2, QuestionType.EASY);
     assertEquals(this.session.summary(), """
         You answered 0 questions.
         1 questions flipped from hard to easy.

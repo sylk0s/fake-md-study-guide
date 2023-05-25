@@ -1,6 +1,7 @@
 package cs3500.pa01.cli;
 
 import cs3500.pa01.spacedrep.Question;
+import cs3500.pa01.spacedrep.QuestionType;
 import cs3500.pa01.spacedrep.Session;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -81,8 +82,8 @@ public class UiController {
           4) Continue
           5) Exit""");
     switch (s) {
-      case "1" -> session.questionToEasy(q);
-      case "2" -> session.questionToHard(q);
+      case "1" -> session.switchTypeTo(q, QuestionType.EASY);
+      case "2" -> session.switchTypeTo(q, QuestionType.HARD);
       case "3" -> {
         this.showAnswer(q);
         // This will show the options AGAIN so the user can choose to re-mark it

@@ -21,6 +21,11 @@ public class Question {
   private final String answer;
 
   /**
+   * If this question's type has been flipped
+   */
+  private boolean flipped;
+
+  /**
    * Constructor
    *
    * @param type the difficulty of this question
@@ -31,6 +36,7 @@ public class Question {
     this.type = type;
     this.question = question;
     this.answer = answer;
+    this.flipped = false;
   }
 
   /**
@@ -61,12 +67,24 @@ public class Question {
   }
 
   /**
-   * Changes the type of this question
-   *
-   * @param type the type to change to
+   * Changes the type of this question to the other type
    */
-  public void changeType(QuestionType type) {
-    this.type = type;
+  public void flipType() {
+    if (this.type.equals(QuestionType.HARD)) {
+      this.type = QuestionType.EASY;
+    } else {
+      this.type = QuestionType.HARD;
+    }
+    this.flipped = !this.flipped;
+  }
+
+  /**
+   * Check is a question has been flipped
+   *
+   * @return A boolean representing if a value has been flipped or not
+   */
+  public boolean hasBeenFlipped() {
+    return this.flipped;
   }
 
   /**
