@@ -30,11 +30,11 @@ public class Driver {
 
       // generate a summary from this list & writes it to a file
       SummaryGenerator sg = new SummaryGenerator(visitor.getFiles(), args[1]);
-      FileIo.writeFile(args[2] + ".md", sg.generate());
+      FileIo.writeFile(args[2], sg.generate());
 
       // Generate a sr files from this list and write it to a file
       SrFileGenerator sr = new SrFileGenerator(visitor.getFiles());
-      FileIo.writeFile(args[2] + ".sr", sr.generate());
+      FileIo.writeFile(args[2].substring(0, args[2].length()-3) + ".sr", sr.generate());
 
     } else if (args.length == 0) {
 
