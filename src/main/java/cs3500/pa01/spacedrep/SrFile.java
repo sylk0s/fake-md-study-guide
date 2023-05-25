@@ -13,6 +13,11 @@ public class SrFile implements QuestionFile {
    */
   ArrayList<Question> questions;
 
+  /**
+   * Constructor
+   *
+   * @param questions The list of questions in this file
+   */
   public SrFile(ArrayList<Question> questions) {
     this.questions = questions;
   }

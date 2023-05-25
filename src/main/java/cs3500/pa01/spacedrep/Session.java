@@ -51,8 +51,6 @@ public class Session {
 
   private boolean run;
 
-  // TODO clean the redundant constructors
-
   /**
    * Constructor
    *

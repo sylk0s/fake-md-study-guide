@@ -23,10 +23,21 @@ public class UiController {
     this(new InputStreamReader(System.in), new PrintStream(System.out));
   }
 
+  /**
+   * Constructor
+   *
+   * @param input The readable input to this ui
+   * @param output The writable output from this ui
+   */
   public UiController(Readable input, Appendable output) {
     this.ui = new SimpleCli(input, output);
   }
 
+  /**
+   * Constructor
+   *
+   * @param ui The UI object this controller will wrap
+   */
   public UiController(Ui ui) {
     this.ui = ui;
   }
